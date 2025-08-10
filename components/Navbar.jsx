@@ -26,6 +26,14 @@ export default function Navbar() {
                 <a
                   href={item.href}
                   className="text-sm text-muted hover:text-foreground transition-colors"
+                  onClick={(e) => {
+                    const target = document.querySelector(item.href);
+                    if (target) {
+                      e.preventDefault();
+                      const y = target.getBoundingClientRect().top + window.scrollY - 64; // offset navbar height
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }}
                 >
                   {item.label}
                 </a>

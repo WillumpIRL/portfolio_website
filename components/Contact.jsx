@@ -11,7 +11,23 @@ export default function Contact() {
         action="https://formspree.io/f/your-id"
         method="POST"
         className="mt-6 grid gap-4 sm:max-w-xl"
-        onSubmit={() => setStatus({ state: "submitting", message: "" })}
+        onSubmit={(e) => {
+          // Basic client-side validation
+          const form = e.currentTarget;
+          const name = form.elements.namedItem("name");
+          const email = form.elements.namedItem("email");
+          const message = form.elements.namedItem("message");
+          let error = "";
+          if (!name.value.trim()) error = "Please enter your name.";
+          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) error = "Please enter a valid email.";
+          else if (!message.value.trim()) error = "Please enter a message.";
+          if (error) {
+            e.preventDefault();
+            setStatus({ state: "error", message: error });
+            return;
+          }
+          setStatus({ state: "submitting", message: "" });
+        }}
       >
         <label className="grid gap-1">
           <span className="text-sm font-medium">Name</span>
@@ -47,6 +63,12 @@ export default function Contact() {
         >
           {status.state === "submitting" ? "Sending…" : "Send"}
         </button>
+        {status.state === "error" && (
+          <p role="alert" className="text-sm text-red-600">{status.message}</p>
+        )}
+        {status.state === "success" && (
+          <p role="status" className="text-sm text-green-700">Thanks! Your message has been sent.</p>
+        )}
       </form>
       <div className="mt-4 text-sm text-muted">
         <p>Replace the Formspree action with your endpoint when ready.</p>
