@@ -20,8 +20,8 @@ export default function SunDynamic() {
 
       // Compute pixel-based top positions so we can ensure exactly a quarter is visible at end
       const sunH = el.offsetHeight || vh * 0.7;
-      const startTopPx = Math.round(vh - sunH * 0.85); // near bottom-right
-      const endTopPx = Math.round(-sunH * 0.25); // leave top-left quarter visible
+      const startTopPx = Math.round(vh - sunH * 0.95); // near bottom-right
+      const endTopPx = Math.round(-sunH * 0.125); // leave top-left quarter visible
 
       const topPx = Math.round(startTopPx + (endTopPx - startTopPx) * t);
       el.style.top = `${topPx}px`;
