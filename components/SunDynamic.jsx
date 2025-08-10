@@ -14,24 +14,18 @@ export default function SunDynamic() {
 
     function update() {
       const vh = window.innerHeight;
-      const total = vh * 2; // movement occurs over roughly two viewport heights
+      const total = vh * 2; // move over first ~2 screens
       const y = Math.max(0, Math.min(total, window.scrollY));
-      const t = y / total; // 0 at start (bottom), 1 near top
-
-      // Compute pixel-based top positions so we can ensure exactly a quarter is visible at end
-      const sunH = el.offsetHeight || vh * 0.7;
-      const startTopPx = Math.round(vh - sunH * 0.95); // near bottom-right
-      const endTopPx = Math.round(-sunH * 0.125); // leave top-left quarter visible
-
-      const topPx = Math.round(startTopPx + (endTopPx - startTopPx) * t);
-      el.style.top = `${topPx}px`;
+      const t = y / total; // 0 at start, 1 at end
+      // Map t: 0 -> bottom (85vh), 1 -> off top (-30vh)
+      const sunYvh = 85 - t * 115; // from 85vh to -30vh
+      el.style.top = `calc(${sunYvh}vh)`;
 
       // Broadcast sun position for lighting
       const event = new CustomEvent('sun:position', {
         detail: {
-          // Place near right edge with same offset as the visual sun container
-          x: window.innerWidth * 0.9,
-          y: topPx + sunH * 0.5,
+          x: window.innerWidth * 0.9, // near right edge
+          y: (sunYvh / 100) * window.innerHeight,
           t,
         },
       });

@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef } from 'react';
  * - Stars recycle seamlessly to create a continuous belt
  * - Uses requestAnimationFrame for a single composited transform update per star
  */
-export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thickness = 160 }) {
+export default function AsteroidBelt3D({ count = 120, ringRadius = 420 }) {
   const containerRef = useRef(null);
   const starRefs = useRef([]);
   const reduceMotion = useRef(false);
@@ -16,14 +16,12 @@ export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thicknes
   const stars = useMemo(() =>
     Array.from({ length: count }).map((_, i) => ({
       baseAngle: (i / count) * Math.PI * 2, // even distribution around the ring
-      // Distribute stars across a thick torus-like band by varying the radial offset and slight Y
-      radialJitter: (Math.random() - 0.5) * thickness, // expands ring into a thick band
-      yOffset: (Math.random() - 0.5) * (thickness * 0.4),
-      size: 0.8 + Math.random() * 2.2,
+      yOffset: (Math.random() - 0.5) * 60, // slight vertical jitter for depth
+      size: 1 + Math.random() * 2,
       speed: 0.0007 + Math.random() * 0.0015,
-      drift: 12 + Math.random() * 24, // right drift when near front
+      drift: 10 + Math.random() * 20, // right drift when near front
     })),
-  [count, thickness]);
+  [count]);
 
   useEffect(() => {
     reduceMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,7 +32,7 @@ export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thicknes
 
     function frame() {
       globalAngle += 0.004; // belt rotation speed
-      const perspectivePx = Math.min(1400, Math.max(700, window.innerWidth));
+      const perspectivePx = Math.min(1200, Math.max(600, window.innerWidth));
       el.style.perspective = `${perspectivePx}px`;
 
       for (let i = 0; i < stars.length; i++) {
@@ -47,14 +45,14 @@ export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thicknes
         let phase = ((theta + Math.PI) % (Math.PI * 2)) - Math.PI;
 
         // TranslateZ magnitude: larger near front (phase≈0), smaller at back
-        const zFront = 320;
-        const zBack = -360;
+        const zFront = 280;
+        const zBack = -300;
         const z = zBack + (1 - Math.abs(phase) / Math.PI) * (zFront - zBack);
 
         // Compute opacity and scale based on z depth
         const depth01 = (z - zBack) / (zFront - zBack);
-        const opacity = 0.12 + depth01 * 0.88;
-        const scale = 0.55 + depth01 * 1.05;
+        const opacity = 0.15 + depth01 * 0.85;
+        const scale = 0.6 + depth01 * 0.9;
 
         // Horizontal drift to the right near the front to imply passing by
         const driftX = s.drift * depth01;
@@ -63,7 +61,7 @@ export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thicknes
         // Using will-change on each star keeps this on the compositor
         starEl.style.transform = `
           rotateY(${theta}rad)
-          translateZ(${ringRadius + s.radialJitter}px)
+          translateZ(${ringRadius}px)
           translateZ(${z}px)
           translateX(${driftX}px)
           translateY(${s.yOffset}px)
@@ -87,8 +85,7 @@ export default function AsteroidBelt3D({ count = 220, ringRadius = 460, thicknes
       style={{ perspective: '1000px' }}
     >
       {/* Belt origin near right edge where the sun lives */}
-      {/* Anchor to middle-right regardless of sun position */}
-      <div className="absolute right-[4%] top-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
+      <div className="absolute right-[5%] top-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
         {stars.map((s, i) => (
           <span
             key={i}
