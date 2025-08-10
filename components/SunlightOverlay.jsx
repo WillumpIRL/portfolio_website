@@ -16,14 +16,20 @@ export default function SunlightOverlay() {
     function onScroll() {
       const scrollY = window.scrollY;
       const viewportH = window.innerHeight;
-      // Expand faster at start, then slow: ease via tanh-like curve
       const t = Math.min(1, scrollY / (viewportH * 1.25));
-      const eased = t * (2 - t); // quadratic ease-out
-      // scale from ~1 to ~6x to tint lower sections as you scroll
+      const eased = t * (2 - t);
       const scale = 1 + eased * 5;
       el.style.transform = `translateZ(0) scaleY(${scale.toFixed(3)})`;
-      // Increase opacity slightly with scroll for stronger tint
       el.style.opacity = (0.35 + eased * 0.25).toFixed(3);
+    }
+
+    // React to sun position to move the overlay's gradient origin
+    function onSunPosition(e) {
+      // Position gradient focus based on sun x/y in viewport
+      const { x, y } = e.detail;
+      const xPct = (x / window.innerWidth) * 100;
+      const yPct = (y / window.innerHeight) * 100;
+      el.style.backgroundImage = `radial-gradient(120% 80% at ${xPct}% ${yPct}%, rgba(255,200,120,0.45), rgba(255,150,60,0.25) 40%, rgba(255,120,30,0.15) 65%, rgba(0,0,0,0) 100%)`;
     }
 
     function onResize() {
@@ -35,9 +41,11 @@ export default function SunlightOverlay() {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onResize);
     }
+    window.addEventListener('sun:position', onSunPosition);
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('sun:position', onSunPosition);
     };
   }, []);
 
@@ -45,7 +53,7 @@ export default function SunlightOverlay() {
     <div
       aria-hidden
       ref={overlayRef}
-      className="fixed inset-x-0 top-0 -z-10 h-[120vh] origin-top bg-[radial-gradient(120%_80%_at_80%_0%,rgba(255,200,120,0.45),rgba(255,150,60,0.25)_40%,rgba(255,120,30,0.15)_65%,rgba(0,0,0,0)_100%)] transition-[transform,opacity] duration-300 will-change-transform"
+      className="fixed inset-x-0 top-0 -z-10 h-[120vh] origin-top transition-[transform,opacity] duration-300 will-change-transform"
     />
   );
 }
