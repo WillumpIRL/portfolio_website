@@ -58,8 +58,8 @@ export default function TorusBelt3D({ majorRadius = 320, minorRadius = 80, rings
     let raf = 0;
     let thetaOffset = 0; // global rotation angle
 
-    function frame() {
-      thetaOffset += 0.01; // global belt rotation speed
+            function frame() {
+          thetaOffset -= 0.01; // global belt rotation speed (reversed)
       const perspectivePx = Math.min(1200, Math.max(700, window.innerWidth));
       belt.style.perspective = `${perspectivePx}px`;
 
