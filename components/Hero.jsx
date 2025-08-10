@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
@@ -53,4 +53,3 @@ export default function Hero() {
     </section>
   );
 }
-

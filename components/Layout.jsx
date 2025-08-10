@@ -1,5 +1,5 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function Layout({ children }) {
   return (
@@ -12,12 +12,9 @@ export default function Layout({ children }) {
       </a>
       <Navbar />
       <main id="content" className="flex-1">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-          {children}
-        </div>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">{children}</div>
       </main>
       <Footer />
     </div>
   );
 }
-

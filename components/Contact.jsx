@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function Contact() {
-  const [status, setStatus] = useState({ state: "idle", message: "" });
+  const [status, setStatus] = useState({ state: 'idle', message: '' });
 
   return (
     <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading" className="text-2xl sm:text-3xl font-bold">Contact</h2>
+      <h2 id="contact-heading" className="text-2xl sm:text-3xl font-bold">
+        Contact
+      </h2>
       <p className="mt-2 text-muted">Use the form below or reach me on social.</p>
       <form
         action="https://formspree.io/f/your-id"
@@ -14,19 +16,20 @@ export default function Contact() {
         onSubmit={(e) => {
           // Basic client-side validation
           const form = e.currentTarget;
-          const name = form.elements.namedItem("name");
-          const email = form.elements.namedItem("email");
-          const message = form.elements.namedItem("message");
-          let error = "";
-          if (!name.value.trim()) error = "Please enter your name.";
-          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) error = "Please enter a valid email.";
-          else if (!message.value.trim()) error = "Please enter a message.";
+          const name = form.elements.namedItem('name');
+          const email = form.elements.namedItem('email');
+          const message = form.elements.namedItem('message');
+          let error = '';
+          if (!name.value.trim()) error = 'Please enter your name.';
+          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))
+            error = 'Please enter a valid email.';
+          else if (!message.value.trim()) error = 'Please enter a message.';
           if (error) {
             e.preventDefault();
-            setStatus({ state: "error", message: error });
+            setStatus({ state: 'error', message: error });
             return;
           }
-          setStatus({ state: "submitting", message: "" });
+          setStatus({ state: 'submitting', message: '' });
         }}
       >
         <label className="grid gap-1">
@@ -59,15 +62,19 @@ export default function Contact() {
         <button
           type="submit"
           className="inline-flex items-center rounded-md bg-brand-600 text-white px-5 py-2.5 text-sm font-medium shadow hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 disabled:opacity-70"
-          disabled={status.state === "submitting"}
+          disabled={status.state === 'submitting'}
         >
-          {status.state === "submitting" ? "Sending…" : "Send"}
+          {status.state === 'submitting' ? 'Sending…' : 'Send'}
         </button>
-        {status.state === "error" && (
-          <p role="alert" className="text-sm text-red-600">{status.message}</p>
+        {status.state === 'error' && (
+          <p role="alert" className="text-sm text-red-600">
+            {status.message}
+          </p>
         )}
-        {status.state === "success" && (
-          <p role="status" className="text-sm text-green-700">Thanks! Your message has been sent.</p>
+        {status.state === 'success' && (
+          <p role="status" className="text-sm text-green-700">
+            Thanks! Your message has been sent.
+          </p>
         )}
       </form>
       <div className="mt-4 text-sm text-muted">
@@ -76,4 +83,3 @@ export default function Contact() {
     </section>
   );
 }
-

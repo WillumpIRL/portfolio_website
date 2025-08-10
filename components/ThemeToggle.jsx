@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -6,11 +6,11 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
-    const stored = typeof window !== "undefined" && localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialDark = stored ? stored === "dark" : prefersDark;
+    const stored = typeof window !== 'undefined' && localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = stored ? stored === 'dark' : prefersDark;
     setIsDark(initialDark);
-    document.documentElement.classList.toggle("dark", initialDark);
+    document.documentElement.classList.toggle('dark', initialDark);
   }, []);
 
   if (!mounted) return null;
@@ -23,12 +23,11 @@ export default function ThemeToggle() {
       onClick={() => {
         const next = !isDark;
         setIsDark(next);
-        document.documentElement.classList.toggle("dark", next);
-        localStorage.setItem("theme", next ? "dark" : "light");
+        document.documentElement.classList.toggle('dark', next);
+        localStorage.setItem('theme', next ? 'dark' : 'light');
       }}
     >
-      {isDark ? "Light" : "Dark"}
+      {isDark ? 'Light' : 'Dark'}
     </button>
   );
 }
-

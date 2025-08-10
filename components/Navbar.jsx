@@ -1,12 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import ThemeToggle from "@/components/ThemeToggle";
+import Link from 'next/link';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
@@ -16,8 +15,13 @@ export default function Navbar() {
         aria-label="Primary"
         className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
       >
-        <Link href="#" className="flex items-center gap-2 font-semibold">
-          <Image src="/next.svg" alt="Home" width={28} height={28} className="dark:invert" />
+        <Link href="#" className="flex items-center gap-2 font-extrabold text-base">
+          <span
+            aria-hidden
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-brand-600 text-white"
+          >
+            WJ
+          </span>
           <span className="sr-only">Home</span>
         </Link>
         <div className="flex items-center gap-6">
@@ -32,7 +36,7 @@ export default function Navbar() {
                     if (target) {
                       e.preventDefault();
                       const y = target.getBoundingClientRect().top + window.scrollY - 64; // offset navbar height
-                      window.scrollTo({ top: y, behavior: "smooth" });
+                      window.scrollTo({ top: y, behavior: 'smooth' });
                     }
                   }}
                 >
@@ -53,4 +57,3 @@ export default function Navbar() {
     </header>
   );
 }
-

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://your-domain.com/sitemap.xml
+# Update at deploy time if NEXT_PUBLIC_SITE_URL is set; falls back to localhost.
+Sitemap: http://localhost:3000/sitemap.xml
 

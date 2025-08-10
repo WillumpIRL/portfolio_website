@@ -1,11 +1,11 @@
-import "@/styles/globals.css";
-import Head from "next/head";
-import Layout from "@/components/Layout";
+import '@/styles/globals.css';
+import Head from 'next/head';
+import Layout from '@/components/Layout';
 
 export default function App({ Component, pageProps }) {
-  const siteName = "William James — Portfolio";
-  const siteDescription = "Software Engineer portfolio: projects, skills, and contact.";
-  const siteUrl = "https://your-domain.com";
+  const siteName = 'William James — Portfolio';
+  const siteDescription = 'Software Engineer portfolio: projects, skills, and contact.';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   const siteOgImage = `${siteUrl}/images/og-image.png`;
 
   return (

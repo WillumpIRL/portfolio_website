@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { motion } from "framer-motion";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function ProjectCard({ imageSrc, title, description, tech = [], liveUrl, repoUrl }) {
   return (
@@ -25,7 +25,10 @@ export default function ProjectCard({ imageSrc, title, description, tech = [], l
         {tech.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-2">
             {tech.map((t) => (
-              <li key={t} className="text-xs px-2 py-1 rounded bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200 border border-brand-100/60 dark:border-brand-900/40">
+              <li
+                key={t}
+                className="text-xs px-2 py-1 rounded bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200 border border-brand-100/60 dark:border-brand-900/40"
+              >
                 {t}
               </li>
             ))}
@@ -57,4 +60,3 @@ export default function ProjectCard({ imageSrc, title, description, tech = [], l
     </motion.article>
   );
 }
-
