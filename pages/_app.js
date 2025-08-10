@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import Head from "next/head";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   const siteName = "William James — Portfolio";
@@ -29,7 +30,9 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:description" content={siteDescription} />
         <meta name="twitter:image" content={siteOgImage} />
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }
