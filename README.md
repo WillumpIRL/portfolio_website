@@ -1,19 +1,22 @@
 ## William James — Portfolio
 
-Personal portfolio built with Next.js and TailwindCSS. It’s responsive, accessible, SEO-friendly, and deploys easily to Vercel.
+Personal portfolio built with Next.js and TailwindCSS. It's responsive, accessible, SEO-friendly, and deploys easily to Vercel or GitHub Pages.
 
 ### Tech stack
-- **Next.js (Pages Router)**
+- **Next.js 15.4.6** (Pages Router)
+- **React 19.1.0** with modern hooks
 - **TailwindCSS v4** with custom theme tokens
 - **Framer Motion** animations
-- **ESLint** + **Prettier**
+- **ESLint 9** + **Prettier**
 - **MDX-ready** (pageExtensions configured)
 
 ### Features
 - Responsive layout with Navbar, Footer, and main content area
-- Sections: Hero, About, Skills, Portfolio (filterable), Contact (Formspree-ready)
+- Sections: Space Hero, About, Skills, Portfolio (filterable), Contact (Formspree-ready)
 - Smooth scrolling with navbar offset
 - Dark mode toggle (persists preference)
+- Interactive 3D elements (Torus Belt, Sun Dynamic)
+- Space-themed visual effects and animations
 - SEO: global metadata, robots.txt, sitemap.xml, OG image
 - Accessibility: semantic HTML, skip link, keyboard-friendly controls
 
@@ -38,6 +41,8 @@ npm run build    # Production build
 npm run start    # Start production server
 npm run lint     # ESLint
 npm run format   # Prettier write
+npm run export   # Build and export for GitHub Pages
+npm run publish  # Export and push to GitHub Pages
 ```
 
 ## Environment variables
@@ -53,17 +58,17 @@ components/
   About.jsx
   Contact.jsx
   Footer.jsx
-  Hero.jsx
   Layout.jsx
   Navbar.jsx
   Portfolio.jsx
   ProjectCard.jsx
   Skills.jsx
+  SpaceHero.jsx
+  SunDynamic.jsx
+  SunlightOverlay.jsx
   ThemeToggle.jsx
+  TorusBelt3D.jsx
   ui/
-    Button.jsx
-    Card.jsx
-    Heading.jsx
 pages/
   _app.js
   _document.js
@@ -85,13 +90,14 @@ styles/
 - Portfolio items: `components/Portfolio.jsx`
 - Contact form: update the `action` in `components/Contact.jsx` with your Formspree/Form backend
 - OG image: replace `public/images/og-image.png`
+- 3D elements: customize `TorusBelt3D.jsx` and `SunDynamic.jsx` for different visual effects
 
 ## Deployment
-### GitHub
+### GitHub Pages
 ```bash
-git remote add origin https://github.com/USERNAME/REPO.git
-git push -u origin main
+npm run publish
 ```
+This will build, export, and push the static site to the `docs` branch.
 
 ### Vercel
 - Import the GitHub repo in Vercel
@@ -116,5 +122,8 @@ vercel && vercel --prod
 - [x] Phase 3: Content Sections
 - [x] Phase 4: Interactivity & Optimization
 - [x] Phase 5: Polish & Enhancements
+- [x] Phase 6: 3D Elements & Space Theme
 - [ ] Optional: Blog via MDX
+- [ ] Optional: Performance optimizations
+- [ ] Optional: Additional interactive elements
 
