@@ -1,8 +1,16 @@
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Skills from "@/components/Skills";
+import Portfolio from "@/components/Portfolio";
+import Contact from "@/components/Contact";
 export default function Home() {
   return (
-    <section className="prose">
-      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Welcome</h1>
-      <p>Core layout is in place. Next up: MVP content sections.</p>
-    </section>
+    <div className="space-y-16 sm:space-y-20">
+      <Hero />
+      <About />
+      <Skills />
+      <Portfolio />
+      <Contact />
+    </div>
   );
 }
