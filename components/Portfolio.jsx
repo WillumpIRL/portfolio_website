@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import ProjectCard from "@/components/ProjectCard";
 
 const projects = [
@@ -20,13 +21,35 @@ const projects = [
 ];
 
 export default function Portfolio() {
+  const [filter, setFilter] = useState("All");
+  const tags = useMemo(() => ["All", ...Array.from(new Set(projects.flatMap((p) => p.tech)))], []);
+  const filtered = useMemo(() => (filter === "All" ? projects : projects.filter((p) => p.tech.includes(filter))), [filter]);
+
   return (
     <section id="projects" aria-labelledby="projects-heading">
       <h2 id="projects-heading" className="text-2xl sm:text-3xl font-bold">Projects</h2>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => setFilter(tag)}
+            className={`px-3 py-1.5 rounded-md text-sm border ${
+              filter === tag
+                ? "bg-brand-600 text-white border-brand-600"
+                : "border-black/10 dark:border-white/15 hover:bg-white/60 dark:hover:bg-neutral-800/60"
+            }`}
+            aria-pressed={filter === tag}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
-        {projects.map((p) => (
-          <ProjectCard key={p.title} {...p} />)
-        )}
+        {filtered.map((p) => (
+          <ProjectCard key={p.title} {...p} />
+        ))}
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { href: "#about", label: "About" },
@@ -46,6 +47,7 @@ export default function Navbar() {
           >
             Get in touch
           </a>
+          <ThemeToggle />
         </div>
       </nav>
     </header>

@@ -1,8 +1,15 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function ProjectCard({ imageSrc, title, description, tech = [], liveUrl, repoUrl }) {
   return (
-    <article className="group rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-white/70 dark:bg-neutral-900/60">
+    <motion.article
+      className="group rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-white/70 dark:bg-neutral-900/60"
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="relative aspect-[16/9]">
         <Image
           src={imageSrc}
@@ -47,7 +54,7 @@ export default function ProjectCard({ imageSrc, title, description, tech = [], l
           )}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
