@@ -5,7 +5,9 @@ import Layout from '@/components/Layout';
 export default function App({ Component, pageProps }) {
   const siteName = 'William James — Portfolio';
   const siteDescription = 'Software Engineer portfolio: projects, skills, and contact.';
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NODE_ENV === 'production'
+    ? 'https://willumpirl.github.io/portfolio_website'
+    : 'http://localhost:3000';
   const siteOgImage = `${siteUrl}/images/og-image.png`;
 
   return (
