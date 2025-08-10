@@ -37,11 +37,15 @@ export default function TorusBelt3D({ majorRadius = 320, minorRadius = 80, rings
     function onSun(e) {
       // Track sun center so we can position the torus origin accordingly
       sunCenterRef.current = e.detail;
-      const { x, y } = e.detail;
+      const { x, y, r } = e.detail;
       // Move root to sun center projected into screen; we anchor the belt container at that point
       const root = rootRef.current;
       root.style.left = `${x}px`;
       root.style.top = `${y}px`;
+      // Match torus vertical diameter to sun: set minorRadius dynamically to ~sun radius
+      if (beltRef.current) {
+        beltRef.current.style.setProperty('--torusMinor', `${Math.max(40, r * 0.9)}px`);
+      }
     }
 
     window.addEventListener('sun:position', onSun);
@@ -68,7 +72,9 @@ export default function TorusBelt3D({ majorRadius = 320, minorRadius = 80, rings
 
         // Parametric torus coordinates
         const R = majorRadius;
-        const r = minorRadius;
+        // Use runtime-adjusted minor radius if provided via CSS var, else default prop
+        const rVar = parseFloat(getComputedStyle(belt).getPropertyValue('--torusMinor')) || minorRadius;
+        const r = rVar;
         const cosPhi = Math.cos(phi);
         const sinPhi = Math.sin(phi);
         const cosTh = Math.cos(th);
