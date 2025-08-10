@@ -1,4 +1,4 @@
-import AsteroidBelt3D from '@/components/AsteroidBelt3D';
+import TorusBelt3D from '@/components/TorusBelt3D';
 import SunDynamic from '@/components/SunDynamic';
 import SunlightOverlay from '@/components/SunlightOverlay';
 
@@ -7,7 +7,7 @@ export default function SpaceHero() {
     <section aria-labelledby="hero-heading" className="relative isolate">
       {/* Background layers */}
       <div className="fixed inset-0 -z-20 bg-neutral-950" aria-hidden />
-      <AsteroidBelt3D />
+      <TorusBelt3D />
       <SunDynamic />
       <SunlightOverlay />
 

@@ -14,20 +14,35 @@ export default function SunDynamic() {
 
     function update() {
       const vh = window.innerHeight;
+      const vw = window.innerWidth;
       const total = vh * 2; // move over first ~2 screens
-      const y = Math.max(0, Math.min(total, window.scrollY));
-      const t = y / total; // 0 at start, 1 at end
-      // Map t: 0 -> bottom (85vh), 1 -> off top (-30vh)
-      const sunYvh = 85 - t * 115; // from 85vh to -30vh
-      el.style.top = `calc(${sunYvh}vh)`;
+      const yScroll = Math.max(0, Math.min(total, window.scrollY));
+      const t = yScroll / total; // 0 at start, 1 at end
 
-      // Broadcast sun position for lighting
+      // Compute sun dimensions and radius for quadrant placement
+      const sunH = el.offsetHeight || vh * 0.8;
+      const sunW = el.offsetWidth || sunH;
+      const r = Math.min(sunW, sunH) / 2;
+
+      // Initial position (scroll 0): center just outside bottom-right by radius in both axes
+      // This makes only the top-left quadrant visible at the lower-right edge
+      const startTopPx = vh - r; // center.y = vh + r -> top = (vh + r) - sunH/2 => vh - r
+      const startRightPx = -r; // center.x = vw + r -> right = -r
+
+      // End position: move center up so sun is fully off-screen above top by a radius
+      const endTopPx = -sunH; // fully off-screen
+
+      // Interpolate top between start and end based on scroll t
+      const topPx = Math.round(startTopPx + (endTopPx - startTopPx) * t);
+      el.style.top = `${topPx}px`;
+      el.style.right = `${startRightPx}px`;
+
+      // Sun center for lighting: (vw + r, top + r)
+      const centerX = vw + r;
+      const centerY = topPx + r;
+
       const event = new CustomEvent('sun:position', {
-        detail: {
-          x: window.innerWidth * 0.9, // near right edge
-          y: (sunYvh / 100) * window.innerHeight,
-          t,
-        },
+        detail: { x: centerX, y: centerY, t },
       });
       window.dispatchEvent(event);
     }
