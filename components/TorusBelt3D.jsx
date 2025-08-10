@@ -105,13 +105,17 @@ export default function TorusBelt3D({ majorRadius = 320, minorRadius = 80, rings
 
   return (
     <div aria-hidden ref={rootRef} className="pointer-events-none fixed -z-10" style={{ left: '100vw', top: '100vh' }}>
-      {/* Position at the sun center; use preserve-3d for children and set perspective */}
-      <div ref={beltRef} className="relative [transform-style:preserve-3d]" style={{ perspective: '1000px' }}>
+      {/* Position at the sun center; shift belt left by its major radius so near side is on-screen */}
+      <div
+        ref={beltRef}
+        className="relative [transform-style:preserve-3d] will-change-transform"
+        style={{ perspective: '1000px', transform: `translateX(-${majorRadius}px)` }}
+      >
         {samples.map((_, i) => (
           <span
             key={i}
             ref={(r) => (starRefs.current[i] = r)}
-            className="absolute left-0 top-0 block h-1 w-1 rounded-full bg-white shadow-[0_0_4px_#fff] will-change-transform"
+            className="absolute left-0 top-0 block h-[1.5px] w-[1.5px] rounded-full bg-white shadow-[0_0_4px_#fff] will-change-transform"
             style={{ transform: 'translateZ(0)', opacity: 0 }}
           />
         ))}

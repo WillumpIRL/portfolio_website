@@ -41,10 +41,12 @@ export default function SunDynamic() {
       const centerX = vw + r;
       const centerY = topPx + r;
 
-      const event = new CustomEvent('sun:position', {
-        detail: { x: centerX, y: centerY, t },
+      const detail = { x: centerX, y: centerY, t };
+      window.dispatchEvent(new CustomEvent('sun:position', { detail }));
+      // Dispatch once more on next frame to ensure late listeners receive initial position
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new CustomEvent('sun:position', { detail }));
       });
-      window.dispatchEvent(event);
     }
 
     update();
