@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* Brand design tokens */
 :root {
@@ -59,5 +60,5 @@ body {
 
 /* Prose defaults */
 .prose {
-  @apply prose-slate max-w-none;
+  @apply prose max-w-none;
 }
