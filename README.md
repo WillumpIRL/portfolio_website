@@ -2,6 +2,8 @@
 
 Personal portfolio built with Next.js and TailwindCSS. It's responsive, accessible, SEO-friendly, and deploys easily to Vercel or GitHub Pages.
 
+**Live site:** [https://willumpirl.github.io/portfolio_website](https://willumpirl.github.io/portfolio_website)
+
 ### Tech stack
 - **Next.js 15.4.6** (Pages Router)
 - **React 19.1.0** with modern hooks
@@ -94,6 +96,8 @@ styles/
 
 ## Deployment
 ### GitHub Pages
+The site is deployed at: [https://willumpirl.github.io/portfolio_website](https://willumpirl.github.io/portfolio_website)
+
 ```bash
 npm run publish
 ```
@@ -126,4 +130,3 @@ vercel && vercel --prod
 - [ ] Optional: Blog via MDX
 - [ ] Optional: Performance optimizations
 - [ ] Optional: Additional interactive elements
-
