@@ -130,3 +130,4 @@ vercel && vercel --prod
 - [ ] Optional: Blog via MDX
 - [ ] Optional: Performance optimizations
 - [ ] Optional: Additional interactive elements
+
